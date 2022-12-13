@@ -2,7 +2,7 @@ import strip from "@rollup/plugin-strip";
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
-
+import json from '@rollup/plugin-json';
 const formatArr = ['amd', 'cjs', 'esm', 'iife', 'umd']
 export default formatArr.map(format => {
   return {
@@ -12,6 +12,6 @@ export default formatArr.map(format => {
       file: `dist/index.${format}.js`,
       name: 'file'
     },
-    plugins: [resolve(), commonjs(), typescript(), strip()],
+    plugins: [resolve(), json(), commonjs(), typescript(), strip()],
   }
 })
