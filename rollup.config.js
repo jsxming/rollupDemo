@@ -5,14 +5,21 @@ import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
-const formatArr = ['amd', 'cjs', 'esm', 'iife', 'umd']
+
+// amd - 异步模块定义，适用于 RequireJS 等模块加载器
+// cjs - CommonJS，适用于 Node 环境和其他打包工具（别名：commonjs）
+// es - 将 bundle 保留为 ES 模块文件，适用于其他打包工具以及支持 <script type=module> 标签的浏览器（别名: esm，module）
+// iife - 自执行函数，适用于 <script> 标签。（如果你要为你的应用创建 bundle，那么你很可能用它。）
+// umd - 通用模块定义，生成的包同时支持 amd、cjs 和 iife 三种格式
+// system - SystemJS 模块加载器的原生格式（别名: systemjs）
+const formatArr = ['amd', 'cjs', 'esm']
 
 export default {
   input: './src/main.ts',
   output: formatArr.map(format => {
     return {
       format,
-      file: `dist/index.${format}.js`,
+      dir: `dist/${format}`,
       name: 'file'
     }
   }),
